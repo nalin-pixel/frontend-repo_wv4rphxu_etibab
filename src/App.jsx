@@ -1,71 +1,41 @@
+import { useState } from 'react'
+import Hero from './components/Hero'
+import Nav from './components/Nav'
+import Modal from './components/Modal'
+import { FeaturedArtisans, ImpactStats } from './components/Sections'
+import RegisterForm from './components/RegisterForm'
+
 function App() {
+  const [open, setOpen] = useState(false)
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
-
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
-            </div>
-
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
-
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
+    <div className="min-h-screen bg-white">
+      <Nav onRegisterClick={() => document.getElementById('register').scrollIntoView({ behavior: 'smooth' })} />
+      <main>
+        <Hero onOpenMission={() => setOpen(true)} />
+        <section id="mission" className="max-w-7xl mx-auto px-6 -mt-8 relative z-10">
+          <div className="bg-white rounded-2xl shadow-[0_6px_18px_rgba(11,99,209,0.08)] border p-6">
+            <h2 className="text-xl font-semibold text-gray-800">Our Mission</h2>
+            <p className="mt-2 text-gray-600">We help artisans gain market access, skills, and financing so they can thrive in a digital-first economy.</p>
           </div>
+        </section>
+        <FeaturedArtisans />
+        <ImpactStats />
+        <RegisterForm />
+      </main>
 
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div className="grid md:grid-cols-2">
+          <div className="p-6">
+            <img src="/mission.png" alt="Problem statement explaining barriers in artisan value chain and proposed solutions" className="w-full h-auto rounded-lg" />
           </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
+          <div className="p-6 overflow-y-auto max-h-[70vh]">
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">Accessible text</h3>
+            <p className="text-sm text-gray-700 leading-relaxed">
+              This card contains the core problem statement uploaded by you. It summarises the challenges artisans face in discovery, logistics, capital and digital readiness, and how our initiative bridges these gaps with training, micro-grants and verified market access. The full plaintext is included here so screen readers can parse it clearly.
             </p>
           </div>
         </div>
-      </div>
+      </Modal>
     </div>
   )
 }
